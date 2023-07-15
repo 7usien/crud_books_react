@@ -1,0 +1,52 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "hello reactjs",
+      "description": "learn react from scratch",
+      "price": 55
+    },
+    {
+      "id": "2",
+      "title": "js debugging",
+      "description": "learn js debug",
+      "price": 35
+    },
+    {
+      "id": "3",
+      "title": "Nextjs the big picture",
+      "description": "overview about nextjs",
+      "price": 95
+    },
+    {
+      "id": "4",
+      "title": "Mastering Redux toolkit",
+      "description": "how to master redux toolling with next",
+      "price": 155
+    },
+    {
+      "id": "c069c355-47e8-4406-8864-28003c032348",
+      "title": "helloz",
+      "price": "2",
+      "description": "dlll"
+    },
+    {
+      "id": "bc0cac34-d192-41e1-804a-5b21e6521ff8",
+      "title": "helloz world",
+      "price": "88",
+      "description": "some txt"
+    },
+    {
+      "id": "eef74a91-99a3-4eb3-bd68-5570e514305b",
+      "title": "rtt",
+      "price": "45",
+      "description": "45"
+    },
+    {
+      "id": "255a2d6a-793e-404b-8c22-c122b25e6f7c",
+      "title": "ops dan",
+      "price": "99",
+      "description": "hell"
+    }
+  ]
+}
