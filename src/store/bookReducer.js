@@ -7,8 +7,7 @@ export const insertBook = createAsyncThunk(
   const { rejectWithValue } = thunkAPI;
   try {
    const res = await axios.post("http://localhost:3000/books", bookItem);
-   console.log('res', res);
-
+   console.log(res);
    return res.data
   } catch (err) {
    rejectWithValue(err.message);

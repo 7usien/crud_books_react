@@ -51,8 +51,8 @@ const Addform = () => {
        name="title"
        value={bookItem.title}
        onChange={(e) => {
-        const title = e.target.name;
-        setBookItem({...bookItem, [title]: e.target.value});
+        
+        setBookItem({...bookItem, [e.target.name]: e.target.value});
        }}
       />
      </div>
@@ -65,8 +65,8 @@ const Addform = () => {
        id="price"
        value={bookItem.price}
        onChange={(e) => {
-        const price = e.target.name;
-        setBookItem({...bookItem, [price]: e.target.value});
+        
+        setBookItem({...bookItem, [e.target.name]: e.target.value});
 
        }}
       />
@@ -77,8 +77,8 @@ const Addform = () => {
        name="description"
        value={bookItem.description}
        onChange={(e) => {
-        const description = e.target.name;
-        setBookItem({...bookItem, [description]: e.target.value});
+        
+        setBookItem({...bookItem, [e.target.name]: e.target.value});
        }}
        className="form-control"
        id="Description"
