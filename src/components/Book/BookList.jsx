@@ -1,4 +1,12 @@
-const BooksList = ({ loading, books }) => {
+import { memo, useState } from "react";
+
+const BooksList = memo(({ loading, books, setCurrentId, isLoggedIn }) => {
+
+ const readHandler = (id) => {
+  setCurrentId(id)
+ };
+
+
  return (
   <div>
    <h2>Books List</h2>
@@ -18,10 +26,15 @@ const BooksList = ({ loading, books }) => {
         <span>price {book?.price}</span>{" "}
        </div>
        <div className="btn-group" role="group">
-        <button type="button" className="btn btn-primary">
+        <button disabled={!isLoggedIn}
+         type="button"
+         className="btn btn-primary"
+         onClick={() => {
+          readHandler(book.id);
+         }}>
          Read
         </button>
-        <button type="button" className="btn btn-danger">
+        <button disabled={!isLoggedIn} type="button" className="btn btn-danger">
          Delete
         </button>
        </div>
@@ -31,6 +44,6 @@ const BooksList = ({ loading, books }) => {
    )}
   </div>
  );
-};
+})
 
 export default BooksList;

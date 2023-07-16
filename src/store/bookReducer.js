@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//async insert action
 export const insertBook = createAsyncThunk(
  "books/insertbook",
  async (bookItem, thunkAPI) => {
@@ -8,7 +9,7 @@ export const insertBook = createAsyncThunk(
   try {
    const res = await axios.post("http://localhost:3000/books", bookItem);
    console.log(res);
-   return res.data
+   return res.data;
   } catch (err) {
    rejectWithValue(err.message);
   }
@@ -22,7 +23,6 @@ export const getBooks = createAsyncThunk(
   const { rejectWithValue } = thunAPI;
 
   try {
-   console.log(thunAPI);
    const res = await axios.get("http://localhost:3000/books");
    return res.data;
   } catch (err) {
@@ -58,7 +58,7 @@ const bookReducer = createSlice({
   },
   [insertBook.fulfilled]: (state, action) => {
    state.loading = false;
-   console.log(action.payload)
+   console.log(action.payload);
    state.books.push(action.payload);
   },
   [insertBook.rejected]: (state, action) => {

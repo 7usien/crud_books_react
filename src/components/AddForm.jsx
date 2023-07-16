@@ -1,41 +1,40 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { insertBook } from "../store/bookReducer";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const Addform = () => {
+  const {isLoggedIn}=useSelector((state)=>state.auth)
+
+
  const dispatch = useDispatch();
-  const [bookItem, setBookItem] = useState({
-    title: "",
-    description: "",
-    price:0
-  
+ const [bookItem, setBookItem] = useState({
+  title: "",
+  description: "",
+  price: 0,
  });
 
  const formHandler = (e) => {
   e.preventDefault();
   let id = uuidv4();
 
-   if (bookItem) {
-     
-    const bookData={
-      id,
-      title: bookItem.title,
-      price: bookItem.price,
-      description: bookItem.description,
-     }
-     dispatch(insertBook(bookData));
+  if (bookItem) {
+   const bookData = {
+    id,
+    title: bookItem.title,
+    price: bookItem.price,
+    description: bookItem.description,
+   };
+   dispatch(insertBook(bookData));
 
-     setBookItem({
-       title: "",
-       price:"",
-       description: ""
-       
-  });
-     }
-  };
-  
-  console.log(bookItem)
+   //init fields after submit
+   setBookItem({
+    title: "",
+    price: "",
+    description: "",
+   });
+  }
+ };
 
  return (
   <div className="row">
@@ -51,8 +50,7 @@ const Addform = () => {
        name="title"
        value={bookItem.title}
        onChange={(e) => {
-        
-        setBookItem({...bookItem, [e.target.name]: e.target.value});
+        setBookItem({ ...bookItem, [e.target.name]: e.target.value });
        }}
       />
      </div>
@@ -65,9 +63,7 @@ const Addform = () => {
        id="price"
        value={bookItem.price}
        onChange={(e) => {
-        
-        setBookItem({...bookItem, [e.target.name]: e.target.value});
-
+        setBookItem({ ...bookItem, [e.target.name]: e.target.value });
        }}
       />
      </div>
@@ -77,15 +73,14 @@ const Addform = () => {
        name="description"
        value={bookItem.description}
        onChange={(e) => {
-        
-        setBookItem({...bookItem, [e.target.name]: e.target.value});
+        setBookItem({ ...bookItem, [e.target.name]: e.target.value });
        }}
        className="form-control"
        id="Description"
        rows="3"
        required></textarea>
      </div>
-     <button type="submit" className="btn btn-primary">
+     <button type="submit" className="btn btn-primary" disabled={!isLoggedIn}>
       Submit
      </button>
     </form>
