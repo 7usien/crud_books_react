@@ -24,7 +24,6 @@ const BookContainer = () => {
   setCurrentReadBook({ ...chosenBook[0] });
  }, [currentId]);
 
- console.log(currentReadBook)
  return (
   <>
    <hr className="my-5" />

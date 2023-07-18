@@ -1,15 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logInsert } from "./reportReducer";
 
 //async insert action
 export const insertBook = createAsyncThunk(
  "books/insertbook",
  async (bookItem, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
+  const { rejectWithValue, getState, dispatch } = thunkAPI;
   try {
-   const res = await axios.post("http://localhost:3000/books", bookItem);
-   console.log(res);
+   // bookItem.name = thunkAPI.getState().auth.name;
+   const res = await axios.post("http://localhost:3000/books", {
+    ...bookItem,
+    name: getState().auth.name,
+   });
+   dispatch(logInsert({name:"insert", status:"success"}))
    return res.data;
+  } catch (err) {
+   dispatch(logInsert({name:"insert", status:"failed"}))
+   rejectWithValue(err.message);
+  }
+ }
+);
+
+export const deleteBook = createAsyncThunk(
+ "books/deletebook",
+ async (item, thunkAPI) => {
+  const { rejectWithValue, dispatch } = thunkAPI;
+  try {
+   const res = await axios.delete(`http://localhost:3000/books/${item.id}`);
+   dispatch(logInsert({name:"delete", status:`delete ${item}`}))
+   return item;
   } catch (err) {
    rejectWithValue(err.message);
   }
@@ -58,12 +78,25 @@ const bookReducer = createSlice({
   },
   [insertBook.fulfilled]: (state, action) => {
    state.loading = false;
-   console.log(action.payload);
    state.books.push(action.payload);
   },
   [insertBook.rejected]: (state, action) => {
    state.error = action.payload;
    state.loading = false;
+  },
+
+  [deleteBook.pending]: (state, action) => {
+   state.loading = true;
+   state.error = null;
+  },
+  [deleteBook.fulfilled]: (state, action) => {
+   state.loading = false;
+
+   state.books = state.books.filter((book) => book.id !== action.payload.id);
+  },
+  [deleteBook.rejected]: (state, action) => {
+   state.loading = true;
+   state.error = action.payload; 
   },
  },
 });
